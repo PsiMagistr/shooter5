@@ -52,22 +52,25 @@ class Ship{
     }
     setBonus(bar, bonus){
         bar.current += bonus;
+        if(bar.current > bar.max){
+            bar.current = bar.max;
+        }
+        this.sounds.bonus.play();
+
+    }
+    setDamage(bar, damage){
+        bar.current -= damage;
         if(bar.current < 0){
             bar.current = 0;
         }
-        else if(bar.current > bar.max){
-            bar.current = bar.max;
-           // this.sounds.bonus.play();
 
-        }
-        this.sounds.bonus.play();
     }
     shoot() {
         if (this.currentShootDeley == 0) {
              this.bullets.push(new Rocet(this.x + 10, 555, 4, "#00FF00"), new Rocet(this.x + 35, 555, 4, "#00FF00"));
              this.currentShootDeley = this.maxShootDeley;
-             this.setBonus(this.manaBar, -1);
-             this.sounds.blaster.play();
+             this.setDamage(this.manaBar, 1);
+            // this.sounds.blaster.play();
 
         }        
     }
@@ -157,7 +160,7 @@ class Meteor extends flyObject{
     constructor(x, y, size, speed, ship){
         super(x, y, size, speed, ship);
         this.kadrIndex = 0;
-        this.addEvent("onEarth", ship.setBonus.bind(ship, ship.healthBar, -10));
+        this.addEvent("onEarth", ship.setDamage.bind(ship, ship.healthBar, 10));
     }
 }
 
@@ -165,7 +168,7 @@ class Apteka extends flyObject{
     constructor(x, y, size, speed, ship){
         super(x, y, size, speed, ship);
         this.kadrIndex = 1;
-        this.addEvent("onShip", ship.setBonus.bind(ship, ship.healthBar, 5));
+        this.addEvent("onShip", ship.setBonus.bind(ship, ship.healthBar, 10));
 
     }
 }
