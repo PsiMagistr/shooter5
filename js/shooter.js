@@ -123,7 +123,7 @@ class Shooter{
         for (let bullet of this.ship.bullets) {
             this.scena.fillStyle = bullet.color;
             this.scena.fillRect(bullet.x, bullet.y, 5, 5);
-           
+
         }
         for (let worldObject of this.worldObjects) {
             this.scena.drawImage(this.iresourses.world, worldObject.kadrIndex * worldObject.size, 0, worldObject.size, worldObject.size, worldObject.x, worldObject.y, worldObject.size, worldObject.size);
@@ -140,7 +140,3 @@ class Shooter{
     }
 }
 
-window.addEventListener("load",function(){
-   const shooter = new Shooter("#holst", "#information", ["fon", "gun", "world"], ["blaster", "boom", "bonus"]);
-  // shooter.run();
-});
