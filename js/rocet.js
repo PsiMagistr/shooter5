@@ -31,6 +31,7 @@ class Rocet{
                         }
                     }
                     this.del = true;
+                    worldObjects[i].isShooting = true;
                     sound.play();
                 }
             }

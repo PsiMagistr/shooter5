@@ -33,6 +33,10 @@ class Ship{
             background:"#B0E0E6",
             color:"#00BFFF"});
     }
+    reload(){
+        this.healthBar.current = this.healthBar.max;
+        this.manaBar.current = this.manaBar.max;
+    }
     move(cw){
         this.x += this.speed;
         if((this.x < 0)||(this.x >= cw - 50)){

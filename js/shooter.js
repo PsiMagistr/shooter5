@@ -11,6 +11,8 @@ class Shooter{
         this.iresourses = {};
         this.sresourses = {};
         this.pause = true;
+        this.gameOver = false;
+        this.countOfMeteors = 0;
         this.ship = new Ship(0, this.width - 55, 50, 40, this.sresourses);
         this.maxGenerationDeley = 100;
         this.currentGenerationDeley = this.maxGenerationDeley;
@@ -47,7 +49,16 @@ class Shooter{
 
         }
         if(e.key == "Escape"){
-            this.pause = !this.pause;
+            if(this.gameOver == false){
+                this.pause = !this.pause;
+            }
+            else{
+                this.worldObjects = [];
+                this.currentGenerationDeley = this.maxGenerationDeley;
+                this.ship.reload();
+                this.pause = false;
+                this.gameOver = false;
+            }
         }
 
     }
@@ -103,9 +114,19 @@ class Shooter{
         this.generationWorld();
         this.moveAll(this.worldObjects);
         this.moveAll(this.ship.bullets);
+        for(let object of this.worldObjects){
+            if((object.isShooting == true)){
+                this.countOfMeteors++;
+                object.isShooting = false;
+            }
+        }
         this.ship.bullets = this.clearAll(this.ship.bullets);
         this.worldObjects = this.clearAll(this.worldObjects);
         this.ship.move(this.width);
+        if(this.ship.healthBar.current == 0){
+            this.gameOver = true;
+            this.pause = true;
+        }
     }
     drawBar(bar){
         this.scena.fillStyle = bar.background;
@@ -113,7 +134,16 @@ class Shooter{
         this.scena.fillStyle = bar.color;
         this.scena.fillRect(bar.x, bar.y, bar.getCurrentBar(), bar.height);
     }
+    txtMessage(message){
+        this.scena.font = "italic 15pt Arial";
+        this.scena.fillStyle = "#B0C4DE";
+        this.scena.textBaseline = "middle";
+        this.scena.textAlign = "center";
+        this.scena.fillText(message, this.width / 2, this.height / 2);
+    }
+
     render(){
+        let pausetxt;
         this.scena.clearRect(0, 0, this.width, this.height);
         this.scena.drawImage(this.iresourses.fon, 0, 0, this.width, this.height);
         this.drawBar(this.ship.healthBar);
@@ -129,7 +159,18 @@ class Shooter{
             this.scena.drawImage(this.iresourses.world, worldObject.kadrIndex * worldObject.size, 0, worldObject.size, worldObject.size, worldObject.x, worldObject.y, worldObject.size, worldObject.size);
 
         }
-        this.info.innerHTML = `Загружено ресурсов ${this.resCount} из ${this.totalCount}<BR>Количество пулек во Вселенной: ${this.ship.bullets.length},<BR>Количество летающих объектов: ${this.worldObjects.length}<BR> Жизнь ${this.ship.healthBar.current} из ${this.ship.healthBar.max}`;
+        this.info.innerHTML = `Загружено ресурсов ${this.resCount} из ${this.totalCount}<BR>Количество пулек во Вселенной: ${this.ship.bullets.length},<BR>Количество летающих объектов: ${this.worldObjects.length}<BR> Количество сбитых астероидов: ${this.countOfMeteors}<BR> Жизнь ${this.ship.healthBar.current} из ${this.ship.healthBar.max}`;
+
+        if(this.pause){
+            if(this.gameOver){
+                pausetxt = "Пауза. Вы проиграли. ";
+            }
+            else{
+                pausetxt = "Пауза. ";
+            }
+            this.txtMessage(pausetxt + "Для начала новой игры нажмите Esc.");
+        }
+
     }
     run(){
         if(this.resCount == this.totalCount && this.pause == false) {

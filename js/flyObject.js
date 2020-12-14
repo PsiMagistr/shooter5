@@ -9,6 +9,7 @@ class flyObject{
         this.onShip = [];
         this.ship = ship;
         this.collision = false;
+        this.isShooting = false;
     }
     addEvent(name, callback){
         this[name].push(callback);
