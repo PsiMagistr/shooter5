@@ -163,12 +163,12 @@ class Shooter{
 
         if(this.pause){
             if(this.gameOver){
-                pausetxt = "Пауза. Вы проиграли. ";
+                pausetxt = "Пауза. Вы проиграли. Для начала новой";
             }
             else{
-                pausetxt = "Пауза. ";
+                pausetxt = "Пауза. Для запуска ";
             }
-            this.txtMessage(pausetxt + "Для начала новой игры нажмите Esc.");
+            this.txtMessage(pausetxt + " игры, нажмите Esc.");
         }
 
     }

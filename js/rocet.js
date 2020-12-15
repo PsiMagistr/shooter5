@@ -17,6 +17,8 @@ class Rocet{
                     (this.x < worldObjects[i].x + worldObjects[i].size)&&
                     (this.y >= worldObjects[i].y)&&
                     (this.y < worldObjects[i].y + worldObjects[i].size)){
+
+                    //alert();
                     if(worldObjects[i] instanceof Meteor){
                         if(r <= 50){
                             worldObjects[i].del = true;
@@ -30,8 +32,8 @@ class Rocet{
 
                         }
                     }
-                    this.del = true;
                     worldObjects[i].isShooting = true;
+                    this.del = true;
                     sound.play();
                 }
             }
