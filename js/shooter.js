@@ -92,7 +92,6 @@ class Shooter{
             let x = (this.rnd(0, this.width / this.ship.size) -1) * this.ship.size;
             let speed = this.rnd(1, 5);
             this.worldObjects.push(new Meteor(x, 0, 50, speed, this.ship));
-            //this.worldObjects[this.worldObjects.length -1].addEvent("onEarth", this.ship.setBonus.bind(this.ship, this.ship.healthBar, -10));
             this.currentGenerationDeley = this.maxGenerationDeley;
         }
     }
@@ -164,7 +163,7 @@ class Shooter{
         //this.scena.drawImage(this.iresourses.gun, this.ship.x, this.ship.y, this.ship.size, this.ship.size);
         for (let bullet of this.ship.bullets) {
             this.scena.fillStyle = bullet.color;
-            this.scena.fillRect(bullet.x, bullet.y, 5, 5);
+            bullet.draw(this.scena);
 
         }
         for (let worldObject of this.worldObjects) {

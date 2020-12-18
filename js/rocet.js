@@ -1,10 +1,12 @@
 class Rocet{
-    constructor(x, y, speed, color){
+    constructor(x, y, speed, color, width, height){
         this.x = x;
         this.y = y;
         this.del = false;
         this.speed = speed;
         this.color = color;
+        this.width = width;
+        this.height = height;
     }
     move(worldObjects, r, sound, ship){
         this.y -= this.speed;
@@ -38,5 +40,8 @@ class Rocet{
                 }
             }
         }
+    }
+    draw(scena){
+        scena.fillRect(this.x, this.y, this.width, this.height);
     }
 }

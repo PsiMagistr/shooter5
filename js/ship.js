@@ -61,7 +61,7 @@ class Ship{
     }
     shoot() {
         if (this.currentShootDeley == 0) {
-            this.bullets.push(new Rocet(this.x + 10, 555, 4, "#00FF00"), new Rocet(this.x + 35, 555, 4, "#00FF00"));
+            this.bullets.push(new Rocet(this.x + 10, 555, 4, "#00FF00", 5, 15), new Rocet(this.x + 35, 555, 4, "#00FF00", 5, 15));
             this.currentShootDeley = this.maxShootDeley;
             this.setDamage(this.manaBar, 1);
             this.sounds.blaster.play();
