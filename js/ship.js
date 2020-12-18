@@ -1,8 +1,9 @@
 class Ship{
-    constructor(x , y, size, maxShootDeley, sounds){
+    constructor(x , y, sprite, size, maxShootDeley, sounds){
         this.x = x;
         this.y = y;
         this.size = size;
+        this.sprite = sprite;
         this.bullets = [];
         this.speed = 0;
         this.maxShootDeley = maxShootDeley;
@@ -67,4 +68,8 @@ class Ship{
 
         }
     }
+   draw(scena){
+       scena.drawImage(this.sprite, this.x, this.y, this.size, this.size);
+
+   }
 }

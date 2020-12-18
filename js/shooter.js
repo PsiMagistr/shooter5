@@ -1,6 +1,8 @@
 class Shooter{
     constructor(canvasId, infoId, images_names, sounds_names){
         let canvas = document.querySelector(canvasId);
+        this.checkbox = document.querySelector("#check");
+        this.checkbox.addEventListener("change", this.onbox.bind(this));
         this.scena = canvas.getContext("2d");
         this.width = canvas.width;
         this.height = canvas.height;
@@ -13,7 +15,7 @@ class Shooter{
         this.pause = true;
         this.gameOver = false;
         this.countOfMeteors = 0;
-        this.ship = new Ship(0, this.width - 55, 50, 40, this.sresourses);
+        //this.ship = new Ship(0, this.width - 55, 50, 40, this.sresourses);
         this.maxGenerationDeley = 100;
         this.currentGenerationDeley = this.maxGenerationDeley;
         this.worldObjects = [];
@@ -27,6 +29,7 @@ class Shooter{
             this.sresourses[name] = new Audio("sounds/" + name + ".mp3");
             this.sresourses[name].addEventListener("loadeddata", this.loadedRes.bind(this));
         }
+        this.ship = new Ship(0, this.width - 55, this.iresourses.gun2, 50, 40, this.sresourses);
         this.run();
         window.addEventListener("keydown", this.keyboard_down.bind(this));
         window.addEventListener("keyup", this.keyboard_up.bind(this));
@@ -61,6 +64,14 @@ class Shooter{
             }
         }
 
+    }
+    onbox(e){
+        /*!e.currentTarget.checked;*/
+        for(let key in this.sresourses){
+            this.sresourses[key].muted = !e.currentTarget.checked;
+            /*!e.currentTarget.checked;*/
+        }
+        e.currentTarget.blur();
     }
     keyboard_up(e){
        if((e.key == "ArrowLeft")||(e.key == "ArrowRight")){
@@ -149,7 +160,8 @@ class Shooter{
         this.drawBar(this.ship.healthBar);
         this.drawBar(this.ship.manaBar);
         this.drawBar(this.ship.fuelBar);
-        this.scena.drawImage(this.iresourses.gun, this.ship.x, this.ship.y, this.ship.size, this.ship.size);
+        this.ship.draw(this.scena);
+        //this.scena.drawImage(this.iresourses.gun, this.ship.x, this.ship.y, this.ship.size, this.ship.size);
         for (let bullet of this.ship.bullets) {
             this.scena.fillStyle = bullet.color;
             this.scena.fillRect(bullet.x, bullet.y, 5, 5);
