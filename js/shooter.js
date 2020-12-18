@@ -29,7 +29,7 @@ class Shooter{
             this.sresourses[name] = new Audio("sounds/" + name + ".mp3");
             this.sresourses[name].addEventListener("loadeddata", this.loadedRes.bind(this));
         }
-        this.ship = new Ship(0, this.width - 55, this.iresourses.gun2, 50, 40, this.sresourses,[{x:4,y:555},{x:36, y:555}]);
+        this.ship = new Ship(0, this.width - 55, this.iresourses.gun1, 50, 40, this.sresourses,[{x:4,y:555},{x:36, y:555}]);
         this.run();
         window.addEventListener("keydown", this.keyboard_down.bind(this));
         window.addEventListener("keyup", this.keyboard_up.bind(this));
