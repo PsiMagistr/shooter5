@@ -29,7 +29,7 @@ class Shooter{
             this.sresourses[name] = new Audio("sounds/" + name + ".mp3");
             this.sresourses[name].addEventListener("loadeddata", this.loadedRes.bind(this));
         }
-        this.ship = new Ship(0, this.width - 55, this.iresourses.gun2, 50, 40, this.sresourses);
+        this.ship = new Ship(0, this.width - 55, this.iresourses.gun2, 50, 40, this.sresourses,[{x:4,y:555},{x:36, y:555}]);
         this.run();
         window.addEventListener("keydown", this.keyboard_down.bind(this));
         window.addEventListener("keyup", this.keyboard_up.bind(this));
@@ -160,15 +160,14 @@ class Shooter{
         this.drawBar(this.ship.manaBar);
         this.drawBar(this.ship.fuelBar);
         this.ship.draw(this.scena);
-        //this.scena.drawImage(this.iresourses.gun, this.ship.x, this.ship.y, this.ship.size, this.ship.size);
+
         for (let bullet of this.ship.bullets) {
             this.scena.fillStyle = bullet.color;
             bullet.draw(this.scena);
 
         }
         for (let worldObject of this.worldObjects) {
-            this.scena.drawImage(this.iresourses.world, worldObject.kadrIndex * worldObject.size, 0, worldObject.size, worldObject.size, worldObject.x, worldObject.y, worldObject.size, worldObject.size);
-
+            worldObject.draw(this.scena, this.iresourses.world);
         }
         this.info.innerHTML = `Загружено ресурсов ${this.resCount} из ${this.totalCount}<BR>Количество пулек во Вселенной: ${this.ship.bullets.length},<BR>Количество летающих объектов: ${this.worldObjects.length}<BR> Количество сбитых астероидов: ${this.countOfMeteors}<BR> Жизнь ${this.ship.healthBar.current} из ${this.ship.healthBar.max}`;
 

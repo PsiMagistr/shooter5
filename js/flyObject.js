@@ -10,6 +10,7 @@ class flyObject{
         this.ship = ship;
         this.collision = false;
         this.isShooting = false;
+        this.kadrIndex = 0;
     }
     addEvent(name, callback){
         this[name].push(callback);
@@ -35,6 +36,10 @@ class flyObject{
                 }
             }
         }
+
+    }
+    draw(scena, world){
+        scena.drawImage(world, this.kadrIndex * this.size, 0, this.size, this.size, this.x, this.y, this.size, this.size);
 
     }
 }

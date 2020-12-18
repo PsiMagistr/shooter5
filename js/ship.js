@@ -1,5 +1,5 @@
 class Ship{
-    constructor(x , y, sprite, size, maxShootDeley, sounds){
+    constructor(x , y, sprite, size, maxShootDeley, sounds, positions){
         this.x = x;
         this.y = y;
         this.size = size;
@@ -9,6 +9,7 @@ class Ship{
         this.maxShootDeley = maxShootDeley;
         this.currentShootDeley = 0;
         this.sounds = sounds;
+        this.positions = positions;
         this.healthBar = new Bar({x:5,
             y:5,
             current:100,
@@ -61,7 +62,10 @@ class Ship{
     }
     shoot() {
         if (this.currentShootDeley == 0) {
-            this.bullets.push(new Rocet(this.x + 10, 555, 4, "#00FF00", 5, 15), new Rocet(this.x + 35, 555, 4, "#00FF00", 5, 15));
+            for(let position of this.positions){
+                this.bullets.push(new Rocet(this.x + position.x, position.y, 4, "#00FF00", 5, 15));
+            }
+           // this.bullets.push(new Rocet(this.x + 10, 555, 4, "#00FF00", 5, 15), new Rocet(this.x + 35, 555, 4, "#00FF00", 5, 15));
             this.currentShootDeley = this.maxShootDeley;
             this.setDamage(this.manaBar, 1);
             this.sounds.blaster.play();
